@@ -12,15 +12,17 @@ import (
 	"time"
 )
 
+func runHelp(cmd *cobra.Command, args []string) {
+	cmd.Help()
+}
+
 func newRootCommand(cli *command.CliInstance) *cobra.Command {
 	var cmd = &cobra.Command{
-		Use:   "random-names",
-		Short: "random-names provides Docker-style random names",
-		Long:  `A name generator for Docker style names.`,
-		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
-		},
-		Version: fmt.Sprintf("%s, build %s", command.Version, command.GitCommit),
+		Use:     "random-names",
+		Short:   "random-names provides Docker-style random names",
+		Long:    `A name generator for Docker style names.`,
+		Run:     runHelp,
+		Version: fmt.Sprintf("%s, build %s, describe %s", command.Version, command.GitCommit, command.GitDescribe),
 	}
 	flags := cmd.PersistentFlags()
 	flags.BoolP("version", "v", false, "Print version information and quit")

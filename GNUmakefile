@@ -1,13 +1,20 @@
 SHELL = bash
 GOTOOLS = \
 	github.com/tools/godep
-BUILDTIME=$(date -u -d "@${SOURCE_DATE_EPOCH:-$(date +%s)}" --rfc-3339 ns 2> /dev/null | sed -e 's/ /T/')
+BUILDTIME="$(shell date -u)"
 GIT_IMPORT=github.com/continuul/random-names/command
-GITCOMMIT=$(git rev-parse --short HEAD)
+GIT_COMMIT=$(shell git rev-parse --short HEAD)
+GIT_DESCRIBE?=$(shell git describe --tags --always)
 GIT_DIRTY?=$(shell test -n "`git status --porcelain`" && echo "+CHANGES" || true)
-GOLDFLAGS=-X $(GIT_IMPORT).GitCommit=$(GIT_COMMIT)$(GIT_DIRTY) -X $(GIT_IMPORT).BuildTime=$(BUILDTIME)
+GOLDFLAGS=-X $(GIT_IMPORT).GitCommit=$(GIT_COMMIT)$(GIT_DIRTY) -X $(GIT_IMPORT).GitDescribe=$(GIT_DESCRIBE)
 
+export GIT_COMMIT
+export GIT_DIRTY
+export GIT_DESCRIBE
 export GOLDFLAGS
+export BUILDTIME
+
+CGO_ENABLED=0
 
 .PHONY: all
 all: bin
@@ -18,7 +25,9 @@ bin: tools
 
 .PHONY: install
 install: tools
+	echo $(BUILDTIME)
 	go install -ldflags "${GOLDFLAGS}" .
+	GOOS=linux GOARCH=amd64 go install -ldflags "${GOLDFLAGS}" .
 
 .PHONY: clean
 clean:
@@ -27,3 +36,10 @@ clean:
 .PHONY: tools
 tools:
 	go get -u -v $(GOTOOLS)
+
+.PHONY: image
+image:
+	cp $(GOPATH)/bin/linux_amd64/random-names .
+	docker build -t continuul/names-generator:latest .
+	rm random-names
+
