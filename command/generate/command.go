@@ -1,12 +1,12 @@
 package generate
 
 import (
-	"time"
-	"github.com/continuul/random-names/pkg/namesgenerator"
-	"math/rand"
-	"github.com/spf13/cobra"
 	"fmt"
 	"github.com/continuul/random-names/command"
+	"github.com/continuul/random-names/pkg/namesgenerator"
+	"github.com/spf13/cobra"
+	"math/rand"
+	"time"
 )
 
 func New(cli command.Cli) *cobra.Command {

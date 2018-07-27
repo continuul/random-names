@@ -1,8 +1,8 @@
 package command
 
 import (
-	"io"
 	"github.com/continuul/random-names/pkg/stream"
+	"io"
 )
 
 // Cli represents the command line client.

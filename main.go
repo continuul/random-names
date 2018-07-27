@@ -1,14 +1,14 @@
 package main
 
 import (
-	"os"
-	"github.com/docker/docker/pkg/term"
-	"github.com/continuul/random-names/command"
-	"github.com/continuul/random-names/pkg/stream"
-	"github.com/spf13/cobra"
 	"fmt"
+	"github.com/continuul/random-names/command"
 	"github.com/continuul/random-names/command/commands"
+	"github.com/continuul/random-names/pkg/stream"
+	"github.com/docker/docker/pkg/term"
+	"github.com/spf13/cobra"
 	"math/rand"
+	"os"
 	"time"
 )
 

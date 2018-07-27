@@ -7,6 +7,7 @@ GIT_COMMIT=$(shell git rev-parse --short HEAD)
 GIT_DESCRIBE?=$(shell git describe --tags --always)
 GIT_DIRTY?=$(shell test -n "`git status --porcelain`" && echo "+CHANGES" || true)
 GOLDFLAGS=-X $(GIT_IMPORT).GitCommit=$(GIT_COMMIT)$(GIT_DIRTY) -X $(GIT_IMPORT).GitDescribe=$(GIT_DESCRIBE)
+PACKAGES=$(shell go list ./... | grep -v '/vendor/')
 
 export GIT_COMMIT
 export GIT_DIRTY
@@ -32,6 +33,14 @@ install: tools
 .PHONY: clean
 clean:
 	go clean .
+
+.PHONY: ensure
+ensure:
+	dep ensure
+
+.PHONY: format
+format:
+	go fmt $(PACKAGES)
 
 .PHONY: tools
 tools:

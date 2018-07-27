@@ -1,16 +1,16 @@
 package server
 
 import (
-	"time"
-	"github.com/spf13/cobra"
-	"github.com/continuul/random-names/command"
-	"net/http"
-	"k8s.io/apimachinery/pkg/util/wait"
-	"github.com/golang/glog"
-	"io"
-	"math/rand"
-	"github.com/continuul/random-names/pkg/namesgenerator"
 	"fmt"
+	"github.com/continuul/random-names/command"
+	"github.com/continuul/random-names/pkg/namesgenerator"
+	"github.com/golang/glog"
+	"github.com/spf13/cobra"
+	"io"
+	"k8s.io/apimachinery/pkg/util/wait"
+	"math/rand"
+	"net/http"
+	"time"
 )
 
 type serverInfo struct {
