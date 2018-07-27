@@ -2,6 +2,8 @@ SHELL = bash
 GOTOOLS = \
 	github.com/golang/lint/golint \
 	github.com/tools/godep
+VETARGS?=-asmdecl -atomic -bool -buildtags -copylocks -methods \
+         -nilfunc -printf -rangeloops -shift -structtags -unsafeptr
 BUILD_TIME="$(shell date -u '+%Y-%m-%d_%I:%M:%S%p')"
 VERSION=1.0.0
 GIT_IMPORT=github.com/continuul/random-names/command
@@ -50,6 +52,22 @@ lint:
 		| cut -d '/' -f 4- \
 		| xargs -n1 \
 			golint ;\
+
+.PHONY: vet
+vet:
+	@go list ./... \
+		| grep -v /vendor/ \
+		| cut -d '/' -f 4- \
+		| xargs -n1 \
+			go tool vet $(VETARGS) ;\
+	if [ $$? -ne 0 ]; then \
+		echo ""; \
+		echo "Vet found suspicious constructs. Please check the reported constructs"; \
+		echo "and fix them if necessary before submitting the code for reviewal."; \
+	fi
+
+.PHONY: test
+test: lint vet
 
 .PHONY: tools
 tools:

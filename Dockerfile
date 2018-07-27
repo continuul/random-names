@@ -1,6 +1,8 @@
 FROM alpine:3.7
 
 ARG VERSION
+ARG USER=feynman
+ARG GROUP=keen
 
 LABEL "name"="random-names" \
       "version"="$VERSION" \
@@ -11,8 +13,11 @@ LABEL "name"="random-names" \
 COPY random-names /usr/local/bin
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
-RUN addgroup fun && \
-    adduser -S -G fun fun
+RUN addgroup $GROUP && \
+    adduser -S -G $GROUP $USER
+
+RUN mkdir -p /random-names/config && \
+    chown -R $USER:$GROUP /random-names
 
 RUN set -eux \
     && apk add --no-cache ca-certificates curl dumb-init libcap su-exec \
@@ -21,4 +26,4 @@ RUN set -eux \
 EXPOSE 9000
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD [ "server", "-client", "0.0.0.0" ]
+CMD [ "server", "--bind", "0.0.0.0" ]

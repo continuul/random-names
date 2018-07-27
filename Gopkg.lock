@@ -2,10 +2,22 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "github.com/Azure/go-ansiterm"
+  packages = [
+    ".",
+    "winterm"
+  ]
+  revision = "d6e3b3328b783f23731bc4d058875b0371ff8109"
+
+[[projects]]
+  branch = "master"
   name = "github.com/docker/docker"
-  packages = ["pkg/term"]
-  revision = "a8a31eff10544860d2188dddabdee4d727545796"
-  version = "v1.5.0"
+  packages = [
+    "pkg/term",
+    "pkg/term/windows"
+  ]
+  revision = "3f4410163b8bfbfb67fa2730107235f16c6bbe59"
 
 [[projects]]
   branch = "master"
@@ -18,12 +30,6 @@
   packages = ["."]
   revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
   version = "v1.0"
-
-[[projects]]
-  name = "github.com/moby/moby"
-  packages = ["pkg/term"]
-  revision = "a8a31eff10544860d2188dddabdee4d727545796"
-  version = "v1.5.0"
 
 [[projects]]
   name = "github.com/sirupsen/logrus"
@@ -70,6 +76,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8d9e12c99614ce138dbdde988551a58f940292203148a1c7808cd596c22f036a"
+  inputs-digest = "1394bd0b8999134dc3e7ebe4d3b7d22a120080a2a5195c8e65dc8e7e94adf5b3"
   solver-name = "gps-cdcl"
   solver-version = 1
