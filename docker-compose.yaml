@@ -1,0 +1,6 @@
+version: '3'
+services:
+  web:
+    image: "continuul/random-names:latest"
+    ports:
+     - "9000:9000"

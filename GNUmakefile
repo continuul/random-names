@@ -84,6 +84,6 @@ tools:
 .PHONY: image
 image:
 	cp $(GOPATH)/bin/linux_amd64/random-names .
-	docker build --build-arg VERSION=$(VERSION) -t continuul/names-generator:latest .
+	docker build --build-arg VERSION=$(VERSION) -t continuul/random-names:latest .
 	rm random-names
 

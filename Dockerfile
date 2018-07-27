@@ -26,4 +26,4 @@ RUN set -eux \
 EXPOSE 9000
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD [ "server", "--bind", "0.0.0.0" ]
+CMD [ "server", "--bind", "0.0.0.0", "--ui" ]
