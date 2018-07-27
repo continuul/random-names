@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// New creates a Cobra CLI command.
 func New(cli command.Cli) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "generate",

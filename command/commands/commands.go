@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// AddCommands to the CLI interface.
 func AddCommands(cmd *cobra.Command, cli command.Cli) {
 	cmd.AddCommand(
 		generate.New(cli),

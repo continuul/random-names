@@ -20,6 +20,12 @@
   version = "v1.0"
 
 [[projects]]
+  name = "github.com/moby/moby"
+  packages = ["pkg/term"]
+  revision = "a8a31eff10544860d2188dddabdee4d727545796"
+  version = "v1.5.0"
+
+[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "3e01752db0189b9157070a0e1668a620f9a85da2"
@@ -64,6 +70,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "1c2ad293665baa3615eda4dab8323c86fc63b2364832c1da602d99ffdb43bc17"
+  inputs-digest = "8d9e12c99614ce138dbdde988551a58f940292203148a1c7808cd596c22f036a"
   solver-name = "gps-cdcl"
   solver-version = 1

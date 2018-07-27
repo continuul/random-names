@@ -21,7 +21,7 @@ type CliInstance struct {
 	err io.Writer
 }
 
-// NewCli returns a Cli instance with IO output and error streams set by in, out and err.
+// NewCliInstance returns a Cli instance with IO output and error streams set by in, out and err.
 func NewCliInstance(in io.ReadCloser, out, err io.Writer) *CliInstance {
 	return &CliInstance{in: stream.NewInStream(in), out: stream.NewOutStream(out), err: err}
 }

@@ -17,6 +17,7 @@ type serverInfo struct {
 	cli command.Cli
 }
 
+// New creates a Cobra CLI command.
 func New(cli command.Cli) *cobra.Command {
 	stopCh := SetupSignalHandler()
 
@@ -49,6 +50,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "hello")
 }
 
+// Run the server.
 func Run(s *serverInfo, stopCh <-chan struct{}) error {
 	done := make(chan struct{})
 
@@ -57,7 +59,7 @@ func Run(s *serverInfo, stopCh <-chan struct{}) error {
 	mux.HandleFunc("/api/v1/name", randomNames)
 	mux.HandleFunc("/healthz", healthCheck)
 	go wait.Until(func() {
-		err := http.ListenAndServe(":8000", mux)
+		err := http.ListenAndServe(":9000", mux)
 		if err != nil {
 			glog.Errorf("Starting health server failed: %v", err)
 		}
