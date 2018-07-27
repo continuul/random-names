@@ -1,5 +1,7 @@
 SHELL = bash
 GOTOOLS = \
+	github.com/elazarl/go-bindata-assetfs/... \
+	github.com/jteeuwen/go-bindata/... \
 	github.com/golang/lint/golint \
 	github.com/tools/godep
 VETARGS?=-asmdecl -atomic -bool -buildtags -copylocks -methods \
@@ -29,7 +31,7 @@ bin:
 	go build .
 
 .PHONY: install
-install: tools
+install:
 	go install -ldflags "${GOLDFLAGS}" .
 	GOOS=linux GOARCH=amd64 go install -ldflags "${GOLDFLAGS}" .
 
@@ -44,6 +46,12 @@ ensure:
 .PHONY: format
 format:
 	go fmt $(PACKAGES)
+
+.PHONY: assets
+assets:
+	@go-bindata-assetfs -pkg server -prefix pkg -o bindata_assetfs.go ./ui/...
+	@mv bindata_assetfs.go command/server/
+	$(MAKE) format
 
 .PHONY: lint
 lint:
